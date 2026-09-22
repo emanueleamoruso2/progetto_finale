@@ -300,6 +300,84 @@
 }
 
 
+/* inserisco un background-image alla home*/
+.home-background{
+    background-image:
+    linear-gradient(to right, rgba(20,20,20,0.5),rgba(20,220,0,0.2));
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.homepage{
+    margin-top: 100px;
+    color: white
+}
+
+.img-announce{
+max-width: 400px;
+max-height: 400px;
+opacity: 0.8;
+box-sizing: border-box;
+border: 2px solid black;
+border-radius: 10px;
+}
+
+.btn-custom{
+    width: 150px;
+    height: 80px;
+    border-radius: 9px;
+    font-size: 20px !important;
+    transition: 0.5ss !important;
+    color: black !important;
+}
+.btn-custom:hover{
+    transform: translateY(-5px);
+    color: black !important;
+    border: 2px solid black !important;
+}
+
+.anchor-custom{
+    text-decoration: none;
+    color: black !important;
+}
+
+.card-announce{
+    width: 450px !important;
+    min-height: 35vh !important;
+    border-radius: 20px !important;
+    border: 2px solid orange !important;
+    background-color: rgba(20,20,20,0.1) !important;
+}
+
+.size-card-announce{
+    font-size: 15px !important;
+}
+
+.margin-container{
+    margin-top: 100px !important;
+}
+.margin-component-cards-announce{
+    margin-top: 50px !important;
+}
+
+/* carosello immagini annunci */
+.announce-swiper {
+
+    width: 100%;
+
+    --swiper-theme-color: #ffc107;
+
+}
+
+.announce-detail-image {
+
+    height: 320px;
+
+    object-fit: contain;
+
+}
 
 @media (max-width: 991px) {
     .custom-navbar-container {
@@ -364,34 +442,11 @@
     }
 }
 
-/* inserisco un background-image alla home*/
-.home-background{
-    background-image:
-    linear-gradient(to right, rgba(20,20,20,0.5),rgba(20,220,0,0.2));
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-
-.homepage{
-    margin-top: 100px;
-    color: white
-}
-
-.img-announce{
-max-width: 400px;
-max-height: 400px;
-opacity: 0.8;
-box-sizing: border-box;
-border: 2px solid black;
-border-radius: 10px;
-}
-
-.btn-custom{
-    width: 150px;
+@media (max-width: 450px) {
+ .btn-custom{
+    width: 130px;
     height: 80px;
-    border-radius: 9px;
+    border-radius: 5px;
     font-size: 20px !important;
     transition: 0.5ss !important;
     color: black !important;
@@ -401,20 +456,11 @@ border-radius: 10px;
     color: black !important;
     border: 2px solid black !important;
 }
-
-.anchor-custom{
-    text-decoration: none;
-    color: black !important;
-}
-
 .card-announce{
-    width: 400px !important;
-    min-height: 10vh !important;
+    width: 330px !important;
+    min-height: 35vh !important;
     border-radius: 20px !important;
     border: 2px solid orange !important;
     background-color: rgba(20,20,20,0.1) !important;
 }
-
-.size-card-announce{
-    font-size: 20px !important;
 }
