@@ -53,6 +53,14 @@
                         Home
                     </a>
                 </li>
+                  <li class="nav-item">
+                    <a
+                        class="nav-link custom-link {{ request()->routeIs('WorkwithUs') ? 'active' : '' }}"
+                        href="{{ route('WorkwithUs') }}"
+                    >
+                        Lavora con noi
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a
                         class="nav-link custom-link {{ request()->routeIs('announce.index') ? 'active' : '' }}"
@@ -61,6 +69,14 @@
                         Lista Annunci
                     </a>
                 </li>
+                @auth
+                @if(Auth::user()->is_revisor)
+                  <li class="nav-item">
+                    <a class="nav-link custom-link {{ request()->routeIs('revisor.index') ? 'active' : '' }}" href="{{ route('revisor.index') }}">
+                        Pagina Revisore</a>
+                    </li>
+                    @endif
+                    @endauth
                 <li class="nav-item d-lg-none">
                     <a
                         class="nav-link custom-link"

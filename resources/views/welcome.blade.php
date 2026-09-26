@@ -5,6 +5,11 @@
               <div class="col-12 col-md-6 h-100 d-flex justify-content-center">
                   <h1 class="text-center homepage">Homepage</h1>
               </div>
+              @if(Session()->has('message'))
+              <div class="alert alert-success">
+                {{session('message')}}
+              </div>
+              @endif
           </div>
           <div class="row justify-content-start align-items-center mt-5 h-100">
               <div class="col-12 col-md-6 mt-5 ms-0 h-100 d-flex justify-content-start align-items-center">

@@ -23,4 +23,12 @@ class Announce extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    protected function casts(): array
+{
+    return [
+        'is_accepted' => 'boolean',
+        'price' => 'decimal:2',
+    ];
+}
 }

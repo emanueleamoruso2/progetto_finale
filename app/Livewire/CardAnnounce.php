@@ -15,7 +15,7 @@ class CardAnnounce extends Component
 
     public function render()
     {
-        $query = Announce::latest();
+        $query = Announce::where('is_accepted',true)->latest();
 
         if ($this->categoryId !== null) {
             $query->where('category_id', $this->categoryId);
