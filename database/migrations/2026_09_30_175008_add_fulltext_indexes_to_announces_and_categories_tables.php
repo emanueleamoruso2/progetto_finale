@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('announces', function (Blueprint $table) {
+            $table->fullText(
+                ['title', 'description'],
+                'announces_title_description_fulltext'
+            );
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            $table->fullText(
+                'name',
+                'categories_name_fulltext'
+            );
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('announces', function (Blueprint $table) {
+            $table->dropFullText(
+                'announces_title_description_fulltext'
+            );
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropFullText(
+                'categories_name_fulltext'
+            );
+        });
+    }
+};

@@ -1,77 +1,95 @@
 <div>
+@if($page == 2)
+<div class="container mb-5">
+<div class="row justify-content-center">
+<div class="col-12 col-md-8 col-lg-6">
+<input
+type="search"
+wire:model.live.debounce.500ms="search"
+class="form-control rounded-4 p-3"
+placeholder="Cerca per titolo, descrizione o categoria..."
+>
+</div>
+</div>
+</div>
+@endif
 
-    <div class="row justify-content-center align-items-center {{ $page == 2 ? 'margin-component-cards-announce' : '' }}">
+<div class="row justify-content-center align-items-center {{ $page == 2 ? 'margin-component-cards-announce' : '' }}">
 
-        @foreach($announces as $announce)
+@forelse($announces as $announce)
 
-            <div class="card rounded-4 py-2 mx-5 my-3 my-md-2 d-flex flex-column card-announce justify-content-start">
+<div class="card rounded-4 py-2 mx-5 my-3 my-md-2 d-flex flex-column card-announce justify-content-start">
 
-                {{-- TITOLO --}}
+{{-- TITOLO --}}
 
-                <h1 class="fw-bold" title="{{ $announce->title }}">
-                    Titolo: {{ Str::limit($announce->title, 15, '...') }}
-                </h1>
-
-
-                {{-- PREZZO --}}
-
-                <h2 class="size-card-announce">
-                    Prezzo: {{ $announce->price }} €
-                </h2>
-
-
-                {{-- CATEGORIA --}}
-
-                <h2 class="size-card-announce">
-                    L'annuncio appartiene alla categoria:
-                    <span class="fw-bold">
-                        {{ $announce->category->name }}
-                    </span>
-                </h2>
+<h1 class="fw-bold" title="{{ $announce->title }}">
+Titolo: {{ Str::limit($announce->title, 15, '...') }}
+</h1>
 
 
-                {{-- DESCRIZIONE --}}
+{{-- PREZZO --}}
 
-                <h2 class="size-card-announce">
-                    <span class="fw-bold text-success">
-                        {{ $announce->description }}
-                    </span>
-                </h2>
+<h2 class="size-card-announce">
+Prezzo: {{ $announce->price }} €
+</h2>
 
 
-                {{-- UTENTE --}}
+{{-- CATEGORIA --}}
 
-                <h2 class="size-card-announce">
-                    Inserito dall'utente: {{ $announce->user->name }}
-                </h2>
+<h2 class="size-card-announce">
+L'annuncio appartiene alla categoria:
+<span class="fw-bold">
+{{ $announce->category->name }}
+</span>
+</h2>
 
 
-                {{-- CONTATTO --}}
+{{-- DESCRIZIONE --}}
 
-                <p>
-                    Per maggiori informazioni, puoi inviare una mail all'utente o leggere il dettaglio 
+<h2 class="size-card-announce">
+<span class="fw-bold text-success">
+{{ $announce->description }}
+</span>
+</h2>
 
-                <div class="d-flex justify-content-center align-items-center ">
 
-                    <a
-                        href="mailto:{{ $announce->user->email }}"
-                        class="btn btn-warning mt-2 p-2"
-                    >
-                        {{ $announce->user->email }}
-                    </a>
-                      <a
-                        href="{{route('announce.show',$announce)}}"
-                        class="btn btn-success mt-2 p-2 ms-3"
-                    >
-                        Vai al dettaglio
-                    </a>
+{{-- UTENTE --}}
 
-                </div>
+<h2 class="size-card-announce">
+Inserito dall'utente: {{ $announce->user->name }}
+</h2>
 
-            </div>
 
-        @endforeach
+{{-- CONTATTO --}}
 
-    </div>
+<p>
+Per maggiori informazioni, puoi inviare una mail all'utente o leggere il dettaglio 
 
+<div class="d-flex justify-content-center align-items-center ">
+
+<a
+href="mailto:{{ $announce->user->email }}"
+class="btn btn-warning mt-2 p-2"
+>
+{{ $announce->user->email }}
+</a>
+<a
+href="{{route('announce.show',$announce)}}"
+class="btn btn-success mt-2 p-2 ms-3"
+>
+Vai al dettaglio
+</a>
+</div>
+</div>
+@empty
+<div class="col-12 text-center">
+<h2 class="fw-bold">
+Nessun annuncio trovato
+</h2>
+<p class="fs-5">
+Prova a modificare i termini della ricerca.
+</p>
+</div>
+@endforelse
+</div>
 </div>

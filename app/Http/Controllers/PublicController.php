@@ -6,6 +6,7 @@ use App\Mail\WorkwithUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
 
 
 class PublicController extends Controller
@@ -30,4 +31,13 @@ class PublicController extends Controller
 
         return redirect()->route('homepage')->with('message','Candidatura inviata con succcesso');
     }
+
+    public function makeRevisor($email){
+    Artisan::call('user:make-revisor', [
+        'email' => $email
+    ]);
+    return redirect()
+        ->route('homepage')
+        ->with('message', 'Utente reso revisore correttamente');
+}
 }

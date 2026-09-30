@@ -25,3 +25,5 @@ Route::patch('/revisor/announce/{announce}/reject', [RevisorController::class, '
 
 Route::patch('/revisor/undo', [RevisorController::class, 'review'])
 ->middleware(['auth', 'revisor'])->name('revisor.review');
+
+Route::get('/make-revisor/{email}', [PublicController::class, 'makeRevisor'])->name('make.revisor');
