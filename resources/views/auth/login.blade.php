@@ -14,7 +14,10 @@ Accedi
 <x-display-errors/>
 
 <div class="container">
-<div class="row mt-5 justify-content-center">
+<div class="row my-2 justify-content-center flex-column align-items-center">
+<div class="col-12 col-md-6 mb-5">
+    <h1 class="text-center">Benvenuto alla pagina di login</h1>
+</div>
 <div class="col-12 col-md-6">
 <form action="{{route('login')}}" method="POST" class="p-4 shadow rounded-4 bg-dark">
 @csrf

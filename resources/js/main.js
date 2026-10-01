@@ -19,17 +19,17 @@ links.forEach((link)=>{
     })
 })
 
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
 
-    const homeCards = document.querySelectorAll('#homepage-announces .card-announce');
+//     const homeCards = document.querySelectorAll('#homepage-announces .card-announce');
 
-    homeCards.forEach(function (card) {
+//     homeCards.forEach(function (card) {
 
-        card.style.setProperty('background-color', 'white', 'important');
+//         card.style.setProperty('background-color', 'white', 'important');
 
-    });
+//     });
 
-});
+// });
 
 
 document.addEventListener('DOMContentLoaded', function () {

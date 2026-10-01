@@ -1,6 +1,11 @@
 <div>
-@if($page == 2)
-<div class="container mb-5">
+@if($page == 1)
+<h1 class="text-center text-black fw-bold mt-5">
+{{ trim($search) !== '' ? 'Risultati della ricerca' : 'Gli ultimi 6 Annunci Inseriti' }}
+</h1>
+@endif
+@if($page == 1 || $page == 2)
+<div class="container mt-4 mb-4">
 <div class="row justify-content-center">
 <div class="col-12 col-md-8 col-lg-6">
 <input

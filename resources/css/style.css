@@ -312,6 +312,7 @@
 
 .homepage{
     margin-top: 100px;
+    margin-bottom: 50px;
     color: white
 }
 
@@ -349,6 +350,9 @@ border-radius: 10px;
     border-radius: 20px !important;
     border: 2px solid orange !important;
     background-color: rgba(20,20,20,0.1) !important;
+}
+#homepage-announces .card-announce {
+    background-color: white !important;
 }
 
 .size-card-announce{
