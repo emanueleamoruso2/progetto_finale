@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RevisorController;
+use App\Http\Controllers\LanguageController;
 
 Route::get('/',[PublicController::class,'homepage'])->name('homepage');
 Route::get('/announce/create',[AnnounceController::class,'create'])->name('announce.create')->middleware('auth');
@@ -27,3 +28,7 @@ Route::patch('/revisor/undo', [RevisorController::class, 'review'])
 ->middleware(['auth', 'revisor'])->name('revisor.review');
 
 Route::get('/make-revisor/{email}', [PublicController::class, 'makeRevisor'])->name('make.revisor');
+
+// Rotte per gestire il cambio di lingua
+Route::get('/language/{language}', [LanguageController::class,'changelanguage'])
+->name('language.change');
