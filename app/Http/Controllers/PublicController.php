@@ -7,37 +7,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
+use App\Models\Announce;
 
 
 class PublicController extends Controller
 {
-    public function homepage(){
-        return view('welcome');
-    }
+public function homepage(){
+return view('welcome');
+}
 
-    public function WorkwithUs(){
-        $user=Auth::user();
-        if($user){
-            return view('work-with-us',compact('user'));
-        }
-    }
+public function WorkwithUs(){
+$user=Auth::user();
+if($user){
+return view('work-with-us',compact('user'));
+}
+}
 
-    public function sendEmail(Request $request){
-        $name=$request->name;
-        $email= $request->email;
-        $description= $request->description;
+public function sendEmail(Request $request)
+{
+$user = Auth::user();
 
-        Mail::to('candidature@noreply.com')->send(new WorkwithUs($name,$email,$description));
+$description = $request->description;
 
-        return redirect()->route('homepage')->with('message','Candidatura inviata con succcesso');
-    }
+Mail::to('candidature@noreply.com')->send(
+new WorkwithUs($user, $description)
+);
 
-    public function makeRevisor($email){
-    Artisan::call('user:make-revisor', [
-        'email' => $email
-    ]);
-    return redirect()
-        ->route('homepage')
-        ->with('message', 'Utente reso revisore correttamente');
+return redirect()
+->route('homepage')
+->with('message', 'Candidatura inviata con successo');
+}
+public function searchAnnounces(Request $request)
+{
+$query = $request->input('query');
+
+$announces = Announce::search($query)
+->where('is_accepted', true)
+->paginate(8);
+
+return view('announce.searched', [
+'announces' => $announces,
+'query' => $query,
+]);
 }
 }

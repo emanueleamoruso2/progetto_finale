@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
@@ -14,14 +15,12 @@ class WorkwithUs extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
-    public $email;
+    public $user;
     public $description;
 
-    public function __construct($name, $email, $description)
+    public function __construct(User $user, $description)
     {
-        $this->name = $name;
-        $this->email = $email;
+        $this->user = $user;
         $this->description = $description;
     }
 
@@ -29,9 +28,11 @@ class WorkwithUs extends Mailable
     {
         return new Envelope(
             from: new Address('infoannounce@noreply.com', 'Progetto Finale'),
+
             replyTo: [
-                new Address($this->email, $this->name)
+                new Address($this->user->email, $this->user->name)
             ],
+
             subject: 'Request to become revisor',
         );
     }

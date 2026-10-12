@@ -26,7 +26,7 @@ return [
     'revisor_page' => 'Reviewer Area',
     'contacts' => 'Contacts',
     'open_menu' => 'Open menu',
-    'latest_six' => 'The 6 Most Recent Listings',
+    'latest_six' => 'The 6 Most Recent Announces',
     'search_results' => 'Search Results',
     'search_placeholder' => 'Search by title, description or category...',
     'title' => 'Title',

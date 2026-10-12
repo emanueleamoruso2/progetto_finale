@@ -25,6 +25,10 @@ public function index(Request $request)
 }
 public function show(Announce $announce)
 {
-return view('announce.show', compact('announce'));
+    if (!$announce->is_accepted) {
+        abort(404);
+    }
+
+    return view('announce.show', compact('announce'));
 }
 }

@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class MakeUserRevisor extends Command
 {
-    protected $signature = 'user:make-revisor {email}';
+   protected $signature = 'app:make-user-revisor {email}';
 
     protected $description = 'Rende revisore un utente registrato';
 

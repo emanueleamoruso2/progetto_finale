@@ -3,54 +3,61 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
-use Illuminate\Database\Eloquent\Builder;
 
 class Announce extends Model
 {
-protected $fillable=[
-'title',
-'price',
-'description',
-'category_id',
-'user_id'
-];
+    use Searchable;
 
-public function user()
-{
-return $this->belongsTo(User::class);
-}
+    protected $fillable = [
+        'title',
+        'price',
+        'description',
+        'category_id',
+        'user_id'
+    ];
 
-public function category()
-{
-return $this->belongsTo(Category::class);
-}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-protected function casts(): array
-{
-return [
-'is_accepted' => 'boolean',
-'price' => 'decimal:2',
-];
-}
-use Searchable;
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
-public function toSearchableArray(): array
-{
-return [
-'id' => $this->id,
-'title' => $this->title,
-'description' => $this->description,
-'category' => $this->category?->name ?? '',
-];
-}
+    protected function casts(): array
+    {
+        return [
+            'is_accepted' => 'boolean',
+            'price' => 'decimal:2',
+        ];
+    }
 
-public function shouldBeSearchable(): bool
-{
-return $this->is_accepted == true;
-}
-protected function makeAllSearchableUsing(Builder $query): Builder
-{
-return $query->where('is_accepted', true)->with('category');
-}
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'category' => $this->category,
+        ];
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function setAccepted($value)
+    {
+        $this->is_accepted = $value;
+    }
+
+    public static function toBeRevisedCount()
+    {
+        return Announce::where('is_accepted', null)->count();
+    }
 }

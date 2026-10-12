@@ -31,16 +31,32 @@ public $description;
 #[Validate('required', message: 'La categoria è obbligatoria')]
 public $category;
 
+public $images = [];
+
+public $temporary_images;
+
+public $announce;
+
 
     public function store(){
 
     $this->validate();
-        Announce::create([
+        $this->announce=Announce::create([
             'title' => $this->title,
             'price' => $this->price,
             'description' => $this->description
             ,'category_id'=>$this->category,
             'user_id' =>Auth::user()->id]);
+    if (count($this->images) > 0) {
+
+    foreach ($this->images as $image) {
+
+        $this->announce->images()->create([
+            'path' => $image->store('images', 'public'),
+        ]);
+
+    }
+}
 
     //    $this->clearForm();
        $this->reset();
@@ -53,4 +69,24 @@ public $category;
             'categories' => Category::all(),
         ]);
     }
+
+    public function updatedTemporaryImages()
+{
+    if ($this->validate([
+        'temporary_images.*' => 'image|max:1024',
+        'temporary_images' => 'max:6',
+    ])) {
+        foreach ($this->temporary_images as $image) {
+            $this->images[] = $image;
+        }
+    }
+}
+
+public function removeImage($key)
+{
+    if (in_array($key, array_keys($this->images))) {
+        unset($this->images[$key]);
+    }
+}
+
 }

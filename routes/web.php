@@ -15,7 +15,7 @@ Route::get('/announce/{announce}', [AnnounceController::class, 'show'])
 // richiesta revisore
 Route::get('/WorkwithUs',[PublicController::class,'WorkwithUs'])->name('WorkwithUs')->middleware('auth');
 
-Route::post('/richiesta_revisore_effettuata',[PublicController::class,'SendEmail'])->name('SendEmail');
+Route::post('/richiesta_revisore_effettuata',[PublicController::class,'SendEmail'])->name('SendEmail')->middleware('auth');
 
 Route::get('/revisor', [RevisorController::class, 'index'])->middleware(['auth', 'revisor'])->name('revisor.index');
 
@@ -27,8 +27,13 @@ Route::patch('/revisor/announce/{announce}/reject', [RevisorController::class, '
 Route::patch('/revisor/undo', [RevisorController::class, 'review'])
 ->middleware(['auth', 'revisor'])->name('revisor.review');
 
-Route::get('/make-revisor/{email}', [PublicController::class, 'makeRevisor'])->name('make.revisor');
+Route::get('/make-revisor/{user}', [RevisorController::class, 'makeRevisor'])
+    ->name('make.revisor');
 
 // Rotte per gestire il cambio di lingua
 Route::get('/language/{language}', [LanguageController::class,'changelanguage'])
 ->name('language.change');
+
+//Rotta per ricerca indicizzata
+Route::get('/search/announce', [PublicController::class, 'searchAnnounces'])
+    ->name('announce.search');

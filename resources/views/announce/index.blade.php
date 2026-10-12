@@ -1,17 +1,48 @@
 <x-layout>
-<div class="container-fluid margin-container">
-<div class="row justify-content-center align-items-center">
-<h1 class="text-center">
+
+<div class="container mt-custom mb-4">
+
+<div class="row justify-content-center">
+
+<div class="col-12 text-center">
+
+<h1 class="fw-bold mb-4">
+
 @if($category)
-{{ __('messages.category_index_heading') }} {{ __($category->name) }}
+
+{{ __('messages.category_index_heading') }}
+{{ __($category->name) }}
+
 @else
+
 {{ __('messages.all_announces_index') }}
+
 @endif
+
 </h1>
+
+
 @if($category)
-<h1 class="text-center w-100 pt-5"><a href="{{ route('announce.index') }}" class="anchor-custom"><button class="btn btn-success rounded-4 ms-0 p-1 btn-custom w-50">{{ __('messages.back_full_list') }}</button></a></h1>
+
+<a
+href="{{ route('announce.index') }}"
+class="btn btn-success rounded-4 px-4 py-2 fw-bold"
+>
+{{ __('messages.back_full_list') }}
+</a>
+
 @endif
+
 </div>
+
 </div>
-<livewire:card-announce :page="2" :category-id="$categoryId" />
+
+</div>
+
+
+<livewire:card-announce
+:page="2"
+:category-id="$categoryId"
+/>
+
 </x-layout>

@@ -11,10 +11,12 @@ class IsRevisor
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || !Auth::user()->is_revisor) {
-            abort(403);
+        if (Auth::check() && Auth::user()->is_revisor) {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()
+            ->route('homepage')
+            ->with('message', 'Non sei autorizzato ad accedere alla pagina revisore');
     }
 }

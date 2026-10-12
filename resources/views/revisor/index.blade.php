@@ -1,15 +1,40 @@
 <x-layout>
-<div class="container margin-container">
+<div class="container margin-container mt-custom">
 <div class="row justify-content-center align-items-center">
 <div class="col-12 text-center">
 <h1 class="fw-bold">{{ __('messages.revisor_page') }}</h1>
-<h3 class="mt-3">{{ __('messages.pending_count', ['count' => $count]) }}</h3>
+<h3 class="mt-3">
+    {{ __('messages.pending_count', [
+        'count' => \App\Models\Announce::toBeRevisedCount()
+    ]) }}
+</h3>
 </div>
 </div>
 <div class="row justify-content-center align-items-center mt-5">
 @if($announce)
 <div class="col-12 col-md-8 col-lg-6">
 <div class="card rounded-4 p-4">
+@if($announce->images->count() > 0)
+<div class="row justify-content-center mb-4">
+@foreach($announce->images as $key => $image)
+<div class="col-12 col-md-4 mb-3">
+<img
+src="{{ Storage::url($image->path) }}"
+alt="Foto {{ $key + 1 }} dell'annuncio {{ $announce->title }}"
+class="img-fluid rounded-4 shadow"
+>
+</div>
+@endforeach
+</div>
+@else
+<div class="text-center mb-4">
+<img
+src="/media/announce-img.png"
+alt="Immagine segnaposto"
+class="img-fluid rounded-4 shadow"
+>
+</div>
+@endif
 <h2 class="fw-bold">{{ $announce->title }}</h2>
 <h3 class="mt-3">{{ __('messages.price') }}: {{ $announce->price }} €</h3>
 <h4 class="mt-3">{{ __('messages.category') }}: <span class="fw-bold">{{ __($announce->category->name) }}</span></h4>

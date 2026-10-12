@@ -7,46 +7,33 @@ use App\Models\Announce;
 
 class CardAnnounce extends Component
 {
-    public $limit = null;
+public $limit = null;
 
-    public $page = null;
+public $page = null;
 
-    public $categoryId = null;
+public $categoryId = null;
 
-    public $search = '';
+public function render()
+{
+$query = Announce::where('is_accepted', true)
+->with(['category', 'user'])
+->latest();
 
-    public function render()
-    {
-        $search = trim($this->search);
+if ($this->categoryId !== null) {
+$query->where('category_id', $this->categoryId);
+}
 
-        $query = Announce::where('is_accepted', true)
-            ->with(['category', 'user'])
-            ->latest();
+if ($this->limit) {
+$query->take($this->limit);
+}
 
-        if ($this->categoryId !== null) {
-            $query->where('category_id', $this->categoryId);
-        }
+$announces = $query->get();
 
-        if ($search !== '') {
+$page = $this->page;
 
-            $announces = Announce::search($search)
-                ->constrain($query)
-                ->get();
-
-        } else {
-
-            if ($this->limit) {
-                $query->take($this->limit);
-            }
-
-            $announces = $query->get();
-        }
-
-        $page = $this->page;
-
-        return view(
-            'livewire.card-announce',
-            compact('announces', 'page')
-        );
-    }
+return view(
+'livewire.card-announce',
+compact('announces', 'page')
+);
+}
 }
