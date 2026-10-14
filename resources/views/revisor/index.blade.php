@@ -19,7 +19,7 @@
 @foreach($announce->images as $key => $image)
 <div class="col-12 col-md-4 mb-3">
 <img
-src="{{ Storage::url($image->path) }}"
+src="{{ $image->getUrl(300, 300) }}"
 alt="Foto {{ $key + 1 }} dell'annuncio {{ $announce->title }}"
 class="img-fluid rounded-4 shadow"
 >

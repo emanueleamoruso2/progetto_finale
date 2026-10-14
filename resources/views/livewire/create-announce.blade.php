@@ -1,13 +1,13 @@
 <div>
 <div>
-<div class="container my-2">
+<div class="container mt-custom">
 <div class="row justify-content-center">
-<div class="col-12 col-md-6 mt-5">
+<div class="col-12 col-md-6">
+<div class="container-fluid my-2">
+<div class="row justify-content-center align-items-center h-100 mt-custom-announce_create">
 @if (session('message'))
-<div class="alert alert-success">{{ session('message') }}</div>
+<div class="col-12 alert alert-success mb-custom mt-custom-announce_create">{{ session('message') }}</div>
 @endif
-<div class="container-fluid my-5">
-<div class="row justify-content-center align-items-center h-100">
 <div class="col-12"><h1 class="text-dark text-center">{{ __('messages.create_announce_heading') }}</h1></div>
 </div>
 </div>

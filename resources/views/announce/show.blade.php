@@ -1,23 +1,32 @@
 <x-layout>
 
-<div class="container pt-5 mt-5 pb-5">
+<div class="container mt-custom pb-5">
+
+{{-- TORNA ALLA LISTA ANNUNCI --}}
+<div class="row mb-4">
+
+<div class="col-12">
+
+<a
+href="{{ route('announce.index') }}"
+class="btn btn-outline-success rounded-4 px-4"
+>
+← Torna agli annunci
+</a>
+
+</div>
+
+</div>
+
 
 <div class="row justify-content-center">
 
 <div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
 
-<h1 class="text-center fw-bold mb-5">
-{{ __('messages.announce_details') }}
-</h1>
-
-<div class="card rounded-4 py-3 shadow">
-
-<div class="card-body">
-
-<div class="row g-4 align-items-center justify-content-center">
+<div class="row g-4 align-items-center">
 
 {{-- IMMAGINI --}}
-<div class="col-12 col-lg-6 d-flex justify-content-center">
+<div class="col-12 col-lg-6">
 
 <div class="swiper announce-swiper rounded-4">
 
@@ -30,12 +39,14 @@
 <div class="swiper-slide bg-dark">
 
 <img
-src="{{ \Illuminate\Support\Facades\Storage::url($image->path) }}"
+src="{{ $image->getUrl(300, 300) }}"
 alt="Foto {{ $key + 1 }} dell'annuncio {{ $announce->title }}"
 class="d-block w-100 announce-detail-image"
 >
 
-<span class="position-absolute top-0 start-0 m-3 badge bg-warning text-dark">
+<span
+class="position-absolute bottom-0 start-0 bg-dark text-white px-3 py-2 rounded-end"
+>
 Foto {{ $key + 1 }}
 </span>
 
@@ -45,11 +56,11 @@ Foto {{ $key + 1 }}
 
 @else
 
-<div class="swiper-slide bg-dark">
+<div class="swiper-slide">
 
 <img
-src="/media/announce-img.png"
-alt="Immagine segnaposto"
+src="{{ asset('media/announce-img.png') }}"
+alt="Immagine non disponibile"
 class="d-block w-100 announce-detail-image"
 >
 
@@ -58,6 +69,7 @@ class="d-block w-100 announce-detail-image"
 @endif
 
 </div>
+
 
 @if($announce->images->count() > 1)
 
@@ -74,81 +86,66 @@ class="d-block w-100 announce-detail-image"
 </div>
 
 
-{{-- DETTAGLI --}}
-<div class="col-12 col-lg-6">
+{{-- DETTAGLI ANNUNCIO --}}
+<div class="col-12 col-lg-6 d-flex flex-column align-items-center text-center">
 
-<div class="d-flex flex-column align-items-center text-center px-2 px-lg-3">
-
-<h2 class="fw-bold text-break mb-4">
-{{ __('messages.title') }}:
+<h1 class="fw-bold mb-4">
 {{ $announce->title }}
-</h2>
+</h1>
 
-<h3 class="fw-bold mb-4">
+
+<h3 class="mb-3">
+
 {{ __('messages.price') }}:
+
+<span class="fw-bold">
 {{ $announce->price }} €
+</span>
+
 </h3>
 
-<h4 class="mb-4">
-{{ __('messages.category') }}:
+
+{{-- CATEGORIA CLICCABILE --}}
+<p class="fs-5 mb-3">
+
+{{ __('messages.belongs_category') }}
 
 <a
-href="{{ route('announce.index', ['category' => $announce->category_id]) }}"
+href="{{ route('announce.index', ['category' => $announce->category->id]) }}"
 class="text-decoration-none"
 >
-<button class="btn btn-warning fw-bold">
+
+<span class="badge bg-warning text-dark">
 {{ __($announce->category->name) }}
-</button>
+</span>
+
 </a>
-</h4>
 
-<h4 class="fw-bold">
-{{ __('messages.description') }}:
-</h4>
+</p>
 
-<p class="fs-5 text-break text-success fw-bold text-center mx-auto">
+
+<p class="fs-5 text-success fw-semibold mb-4">
 {{ $announce->description }}
 </p>
 
-<h5 class="mt-3 text-center">
+
+<p class="mb-4">
+
 {{ __('messages.posted_by_user') }}
-<span class="fw-bold">
+
+<strong>
 {{ $announce->user->name }}
-</span>
-</h5>
+</strong>
 
-<p class="text-muted mt-3 text-center">
-{{ __('messages.published_on') }}
-{{ $announce->created_at->format('d/m/Y') }}
 </p>
 
-<p class="mt-3 text-center">
-{{ __('messages.contact_info') }}
-</p>
-
-<div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-3">
 
 <a
 href="mailto:{{ $announce->user->email }}"
-class="btn btn-warning rounded-4 p-2"
+class="btn btn-warning rounded-4 px-4 py-2 fw-bold"
 >
 {{ __('messages.contact_seller') }}
 </a>
-
-<a
-href="{{ route('announce.index') }}"
-class="btn btn-dark rounded-4 p-2"
->
-{{ __('messages.back_to_announces') }}
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 

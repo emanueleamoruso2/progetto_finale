@@ -59,7 +59,7 @@ Cerca
 
 <img
 src="{{ $announce->images->isNotEmpty()
-                            ? Storage::url($announce->images->first()->path)
+                            ? $announce->images->first()->getUrl(300, 300)
                             : asset('media/announce-img.png') }}"
 alt="Immagine dell'annuncio {{ $announce->title }}"
 class="card-announce-image {{ $page == 2 ? 'card-announce-image-index' : '' }}"
