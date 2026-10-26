@@ -113,7 +113,7 @@ title="{{ $announce->title }}"
 
 <a
 href="mailto:{{ $announce->user->email }}"
-class="btn btn-outline-warning rounded-4 flex-fill"
+class="btn btn-warning rounded-4 flex-fill text-dark "
 >
 {{ __('messages.contact_seller') }}
 </a>

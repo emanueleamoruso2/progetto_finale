@@ -11,6 +11,8 @@ use Illuminate\Container\Attributes\Auth as AttributesAuth;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\ResizeImage;
 use Illuminate\Support\Facades\File;
+use App\Jobs\GoogleVisionSafeSearch;
+use App\Jobs\GoogleVisionLabelImage;
 
 class CreateAnnounce extends Component
 {
@@ -63,6 +65,14 @@ dispatch(new ResizeImage(
 $newImage->path,
 300,
 300
+));
+
+dispatch(new GoogleVisionSafeSearch(
+$newImage->id
+));
+
+dispatch(new GoogleVisionLabelImage(
+    $newImage->id
 ));
 }
 

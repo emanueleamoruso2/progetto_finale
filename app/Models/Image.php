@@ -43,4 +43,11 @@ class Image extends Model
             $h
         );
     }
+
+    protected function casts(): array
+{
+    return [
+        'labels' => 'array',
+    ];
+}
 }
