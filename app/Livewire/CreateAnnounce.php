@@ -13,6 +13,7 @@ use App\Jobs\ResizeImage;
 use Illuminate\Support\Facades\File;
 use App\Jobs\GoogleVisionSafeSearch;
 use App\Jobs\GoogleVisionLabelImage;
+use App\Jobs\RemoveFaces;
 
 class CreateAnnounce extends Component
 {
@@ -61,19 +62,11 @@ $newImage = $this->announce->images()->create([
 'path' => $image->store($newFileName, 'public')
 ]);
 
-dispatch(new ResizeImage(
-$newImage->path,
-300,
-300
-));
-
-dispatch(new GoogleVisionSafeSearch(
-$newImage->id
-));
-
-dispatch(new GoogleVisionLabelImage(
-    $newImage->id
-));
+RemoveFaces::withChain([
+new ResizeImage($newImage->path, 300, 300),
+new GoogleVisionSafeSearch($newImage->id),
+new GoogleVisionLabelImage($newImage->id),
+])->dispatch($newImage->id);
 }
 
 File::deleteDirectory(

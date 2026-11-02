@@ -10,6 +10,8 @@ class Announce extends Model
 {
     use Searchable;
 
+    public $asYouType = true;
+
     protected $fillable = [
         'title',
         'price',

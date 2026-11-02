@@ -1,4 +1,4 @@
-<div class="{{ $page == 2 ? 'container pb-5' : '' }}">
+<div class="container {{ $page == 2 ? 'pb-5' : '' }}">
 
 @if($page == 1)
 
@@ -13,34 +13,20 @@
 @endif
 
 
+{{-- RICERCA LIVE --}}
 @if($page == 1 || $page == 2)
 
-<div class="row justify-content-center mb-5">
+<div class="row justify-content-center mb-5 search-sticky">
 
-<div class="col-12 col-md-9 col-lg-7">
-
-<form
-action="{{ route('announce.search') }}"
-method="GET"
-class="search-box"
->
+<div class="col-12 col-md-9 col-lg-7 search-sticky-inner">
 
 <input
 type="search"
-name="query"
 class="form-control"
 placeholder="{{ __('messages.search_placeholder') }}"
-value="{{ request('query') }}"
+wire:model.live.debounce.300ms="search"
 >
 
-<button
-type="submit"
-class="btn btn-warning fw-bold"
->
-Cerca
-</button>
-
-</form>
 
 </div>
 
@@ -113,7 +99,7 @@ title="{{ $announce->title }}"
 
 <a
 href="mailto:{{ $announce->user->email }}"
-class="btn btn-warning rounded-4 flex-fill text-dark "
+class="btn btn-warning rounded-4 flex-fill text-dark"
 >
 {{ __('messages.contact_seller') }}
 </a>

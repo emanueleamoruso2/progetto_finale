@@ -691,6 +691,17 @@
     font-size: 0.9rem;
 }
 
+.search-sticky {
+    position: sticky;
+    top: 90px;
+    z-index: 1020;
+}
+
+.search-sticky-inner {
+    background-color: white;
+    padding: 10px;
+}
+
 
 /* ==================================================
    SWIPER DETTAGLIO ANNUNCIO

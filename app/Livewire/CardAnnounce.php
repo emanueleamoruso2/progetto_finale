@@ -13,6 +13,8 @@ public $page = null;
 
 public $categoryId = null;
 
+public $search = '';
+
 public function render()
 {
 $query = Announce::where('is_accepted', true)
@@ -27,9 +29,18 @@ if ($this->limit) {
 $query->take($this->limit);
 }
 
-$announces = $query->get();
 
 $page = $this->page;
+
+if (strlen(trim($this->search)) >= 3) {
+
+    $ids = Announce::search(trim($this->search))
+        ->get()
+        ->pluck('id');
+
+    $query->whereIn('id', $ids);
+}
+$announces = $query->get();
 
 return view(
 'livewire.card-announce',
